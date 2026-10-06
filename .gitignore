@@ -1,0 +1,13 @@
+# Local firmware dumps
+*.bin
+*.elf
+*.map
+*.hex
+
+# Reverse-engineering generated files
+analysis/output/
+analysis/tmp/
+
+# PlatformIO
+.pio/
+.vscode/
