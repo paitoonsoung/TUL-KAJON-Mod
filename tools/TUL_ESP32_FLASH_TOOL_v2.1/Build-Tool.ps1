@@ -11,8 +11,8 @@ if (!(Test-Path $csc)) {
     throw 'csc.exe not found. Install .NET Framework 4.x or Visual Studio Build Tools.'
 }
 
-$outExe = Join-Path $out 'TulESP32FlashTool.exe'
 $source = Join-Path $root 'TulESP32FlashTool.cs'
+$outExe = Join-Path $out 'TulESP32FlashTool.exe'
 
 & $csc /nologo /target:winexe /platform:anycpu /optimize+ "/out:$outExe" /reference:System.dll /reference:System.Drawing.dll /reference:System.Windows.Forms.dll "$source"
 
@@ -20,5 +20,11 @@ if ($LASTEXITCODE -ne 0) {
     throw 'C# compilation failed.'
 }
 
-Copy-Item (Join-Path $root 'README.md') (Join-Path $out 'README.md') -Force
-Write-Host "Build complete: $outExe"
+$readme = Join-Path $root 'README.md'
+if (Test-Path $readme) {
+    Copy-Item $readme (Join-Path $out 'README.md') -Force
+}
+
+Write-Host ""
+Write-Host "BUILD COMPLETE"
+Write-Host "EXE: $outExe"
